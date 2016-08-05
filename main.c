@@ -1231,7 +1231,7 @@ register_test ()
 	total_count = 0;
 	while (diff < usec_per_test) 
 	{
-		VectorToVector (VREGISTER_COUNT);
+		RegisterToRegisterVector (VREGISTER_COUNT);
 		total_count += VREGISTER_COUNT;
 
 		diff = mytime () - t0;

@@ -25,20 +25,20 @@
 
 # Note, some instructions are not supported by the ARM CPU in the Raspberry pi 2.
 
-.section code ,
+.section code
 
-.globl _Writer
-.globl _WriterVector
-.globl _RandomWriter
-.globl _RandomWriterVector
-.globl _Reader
-.globl _ReaderVector
-.globl _RandomReader
-.globl _RandomReaderVector
-.globl _RegisterToRegister
-.globl _RegisterToRegisterVector
-.globl _StackReader
-.globl _StackWriter
+.globl Writer
+.globl WriterVector
+.globl RandomWriter
+.globl RandomWriterVector
+.globl Reader
+.globl ReaderVector
+.globl RandomReader
+.globl RandomReaderVector
+.globl RegisterToRegister
+.globl RegisterToRegisterVector
+.globl StackReader
+.globl StackWriter
 
 .text
 
@@ -51,7 +51,7 @@
 #	r2 = count
 # 	r3 = value to write
 #-----------------------------------------------------------------------------
-_Writer:
+Writer:
 	stmfd	sp!,{r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
 
 # r4 = temp
@@ -105,7 +105,7 @@ _Writer:
 #	r2 = count
 # 	r3 = value to write
 #-----------------------------------------------------------------------------
-_WriterVector:
+WriterVector:
 	stmfd	sp!,{r4, r5, lr}
 
 # r4 = temp
@@ -147,7 +147,7 @@ _WriterVector:
 #	r1 = length, multiple of 256
 #	r2 = count
 #-----------------------------------------------------------------------------
-_Reader:
+Reader:
 	stmfd	sp!,{r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
 
 # r3 = temp
@@ -192,7 +192,7 @@ _Reader:
 #	r1 = length, multiple of 256
 #	r2 = count
 #-----------------------------------------------------------------------------
-_ReaderVector:
+ReaderVector:
 	stmfd	sp!,{r4, r5, lr}
 
 # r3 = temp
@@ -208,7 +208,7 @@ _ReaderVector:
 .L3v:
 # The "vldmia" instruction automatically increments r0.
 # 8 bytes * 8 registers = 64 bytes
-#	vldmia	r0!, { d0-d7 } 
+#	vldmia	r0!, { d0-d7 }
 #	vldmia	r0!, { d0-d7 }
 #	vldmia	r0!, { d0-d7 }
 #	vldmia	r0!, { d0-d7 }
@@ -237,7 +237,7 @@ _ReaderVector:
 # 	r2 = # loops to do
 # 	r3 = value to write
 #-----------------------------------------------------------------------------
-_RandomWriter:
+RandomWriter:
 	stmfd	sp!,{r4, r5, lr}
 
 # r4 = temp
@@ -337,7 +337,7 @@ _RandomWriter:
 # 	r2 = # loops to do
 # 	r3 = value to write
 #-----------------------------------------------------------------------------
-_RandomWriterVector:
+RandomWriterVector:
 	stmfd	sp!,{r4, r5, lr}
 
 # r4 = temp
@@ -404,7 +404,7 @@ _RandomWriterVector:
 # 	r1 = # of 256-byte chunks
 # 	r2 = # loops to do
 #-----------------------------------------------------------------------------
-_RandomReader:
+RandomReader:
 	stmfd	sp!,{r4, r5, lr}
 
 # r3 = temp
@@ -504,7 +504,7 @@ _RandomReader:
 # 	r1 = # of 256-byte chunks
 # 	r2 = # loops to do
 #-----------------------------------------------------------------------------
-_RandomReaderVector:
+RandomReaderVector:
 	stmfd	sp!,{r4, r5, lr}
 
 # r3 = temp
@@ -570,7 +570,7 @@ _RandomReaderVector:
 # Params:
 #	r0 = count
 #-----------------------------------------------------------------------------
-_RegisterToRegister:
+RegisterToRegister:
 	stmfd	sp!,{lr}
 
 # r1 = temp
@@ -655,7 +655,7 @@ _RegisterToRegister:
 # Params:
 #	r0 = count
 #-----------------------------------------------------------------------------
-_RegisterToRegisterVector:
+RegisterToRegisterVector:
 	stmfd	sp!,{lr}
 
 # r1 = temp
@@ -709,7 +709,7 @@ _RegisterToRegisterVector:
 # Params:
 #	r0 = count
 #-----------------------------------------------------------------------------
-_StackReader:
+StackReader:
 	stmfd	sp!,{lr}
 
 # r1 = temp
@@ -805,7 +805,7 @@ _StackReader:
 # Params:
 #	r0 = count
 #-----------------------------------------------------------------------------
-_StackWriter:
+StackWriter:
 	stmfd	sp!,{lr}
 
 # r1 = temp

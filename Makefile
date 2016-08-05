@@ -19,16 +19,16 @@
 # The author may be reached at veritas@comcast.net.
 #============================================================================
 
-CFLAGS= -O6 
-CFLAGS= -g
-CC=gcc -Wall
-LD=gcc 
-SRC=main.c 
+CFLAGS= -O6
+#CFLAGS= -g
+CC=arm-unknown-linux-gnueabihf-gcc -Wall
+LD=arm-unknown-linux-gnueabihf-gcc
+SRC=main.c
 OBJ=main.o
-LIB= 
+LIB=
 AS=nasm
-ARM_AS=as
-ARM_CC=gcc
+ARM_AS=arm-unknown-linux-gnueabihf-as
+ARM_CC=arm-unknown-linux-gnueabihf-gcc
 
 message:
 	@echo ""
@@ -50,8 +50,8 @@ bandwidth-rpi32:  main.c routines-arm-rpi3-32bit.asm
 	${ARM_AS} -march=armv7 -mfpu=neon routines-arm-rpi3-32bit.asm -mcpu=xscale -o routines-arm-rpi3-32bit.o
 	${ARM_CC} routines-arm-rpi3-32bit.o ${SRC} ${CFLAGS} BMP32.a -lm BMPGraphing32.a -o bandwidth32 -o bandwidth-rpi32
 
-bandwidth-arm32:  main.c routines-arm-32bit.asm BMP32.a BMPGraphing32.a
-	${ARM_AS} routines-arm-generic-32bit.asm -mcpu=xscale -o routines-arm-generic-32bit.o
+bandwidth-arm32:  main.c routines-arm-generic-32bit.asm BMP32.a BMPGraphing32.a
+	${ARM_AS} routines-arm-generic-32bit.asm -mfloat-abi=hard -mfpu=neon -o routines-arm-generic-32bit.o
 	${ARM_CC} routines-arm-generic-32bit.o ${SRC} ${CFLAGS} BMP32.a -lm BMPGraphing32.a -o bandwidth32 -o bandwidth-arm32
 
 bandwidth64:	main.c routines-x86-64bit.asm BMP64.a BMPGraphing64.a
@@ -84,7 +84,7 @@ BMPGraphing64.a: BMPGraphing.c
 	ar rvs BMPGraphing64.a BMPGraphing.o
 
 BMPGraphing32.a: BMPGraphing.c 
-	${CC} ${CFLAGS} -m32 -c BMPGraphing.c 
+	${CC} ${CFLAGS} -c BMPGraphing.c
 	ar rvs BMPGraphing32.a BMPGraphing.o
 
 BMP64.a: BMP.c
@@ -92,7 +92,7 @@ BMP64.a: BMP.c
 	ar rvs BMP64.a BMP.o font.o minifont.o
 
 BMP32.a: BMP.c
-	${CC} ${CFLAGS} -m32 -c BMP.c font.c minifont.c
+	${CC} ${CFLAGS} -c BMP.c font.c minifont.c
 	ar rvs BMP32.a BMP.o font.o minifont.o
 
 clean:
